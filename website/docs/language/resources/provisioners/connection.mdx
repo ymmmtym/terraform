@@ -81,11 +81,11 @@ Resource references are restricted because references create dependencies. Refer
 | Argument Name | Supported By | Description | Default |
 |---------------|--------------|-------------|---------|
 |`type` | Both | The connection type that should be used. Valid types are `ssh` and `winrm`. | `ssh`|
-|`user` | Both | The user to use for the connection. | `root` when using type `ssh` and defaults to `Administrator` when using type `winrm`. |
+|`user` | Both | The user to use for the connection. | `root` when using type `ssh`, `Administrator` when using type `winrm` |
 |`password` | Both | The password we should use for the connection. In some cases this is specified by the provider. | |
 | `host` | Both | **Required** - The address of the resource to connect to. | |
-| `port` | Both| The port to connect to. | `22` when using type `ssh` and defaults to `5985` when using type `winrm`. |
-| `timeout`| Both| The timeout to wait for the connection to become available. Should be provided as a string like `30s` or `5m`. | 5 minutes. |
+| `port` | Both| The port to connect to. | `22` when using type `ssh`,  `5985` when using type `winrm` |
+| `timeout`| Both| The timeout to wait for the connection to become available. Should be provided as a string like `30s` or `5m`. | 5 minutes |
 | `script_path` | Both | The path used to copy scripts meant for remote execution. |  |
 | `private_key` | SSH | The contents of an SSH key to use for the connection. These can be loaded from a file on disk using [the `file` function](/language/functions/file). This takes preference over the password if provided. | |
 | `certificate` | SSH | The contents of a signed CA Certificate. The certificate argument must be used in conjunction with a `private_key`. These can be loaded from a file on disk using the [the `file` function](/language/functions/file). | |
@@ -109,8 +109,8 @@ The `ssh` connection also supports the following fields to facilitate connnectio
 |---------------|-------------|---------|
 |`bastion_host`| Setting this enables the bastion Host connection. This host will be connected to first, and then the `host` connection will be made from there. | |
 |`bastion_host_key`| The public key from the remote host or the signing CA, used to verify the host connection. | |
-|`bastion_port` | The port to use connect to the bastion host. | The value of the `port` field.|
-|`bastion_user`| The user for the connection to the bastion host. | The value of the `user` field. |
-|`bastion_password` | The password to use for the bastion host. | The value of the `password` field. |
-|`bastion_private_key` | The contents of an SSH key file to use for the bastion host. These can be loaded from a file on disk using [the `file` function](language/functions/file). | The value of the `private_key` field. |
+|`bastion_port` | The port to use connect to the bastion host. | The value of the `port` field|
+|`bastion_user`| The user for the connection to the bastion host. | The value of the `user` field |
+|`bastion_password` | The password to use for the bastion host. | The value of the `password` field |
+|`bastion_private_key` | The contents of an SSH key file to use for the bastion host. These can be loaded from a file on disk using [the `file` function](language/functions/file). | The value of the `private_key` field |
 | `bastion_certificate` |  The contents of a signed CA Certificate. The certificate argument must be used in conjunction with a `bastion_private_key`. These can be loaded from a file on disk using the [the `file` function](/language/functions/file). |
