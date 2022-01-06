@@ -607,6 +607,24 @@ func (b *Cloud) StateMgr(name string) (statemgr.Full, error) {
 	return &remote.State{Client: client}, nil
 }
 
+// Return the StateVersionOutputs from TFC
+func (b *Cloud) StateVersionOutputs(name string) ([]*tfe.StateVersionOutput, error) {
+	options := tfe.StateVersionListOptions{
+		Organization: tfe.String(b.organization),
+		Workspace:    tfe.String(name),
+	}
+	svl, err := b.client.StateVersions.List(context.Background(), options)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to retrieve state version list %s: %v", name, err)
+	}
+
+	so, err := b.client.StateVersions.Outputs(context.Background(), svl.Items[0].ID, tfe.StateVersionOutputsListOptions{})
+	if err != nil {
+		return nil, fmt.Errorf("Failed to retrieve state %s: %v", name, err)
+	}
+	return so, nil
+}
+
 // Operation implements backend.Enhanced.
 func (b *Cloud) Operation(ctx context.Context, op *backend.Operation) (*backend.RunningOperation, error) {
 	name := op.Workspace
